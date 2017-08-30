@@ -34,7 +34,7 @@ class UriTemplatetCombineSpec : WordSpec({
             |{#fragment}
             |{?queryList,query,queryMap*}
             |{&queryList,query,queryMap*}
-            |""".trimMargin().replace("\n", "")).toString(variables) shouldBe
+            |""".trimMargin().replace("\n", "")).expand(variables) shouldBe
                     """
                     http://user%27s%20ID@sub.sub.domain.server.com:8080
                     /path/super/sub%2FsubPath/path;singleParam=query;simple=sim-ple;nameOnly=null;singleParam=query
@@ -44,7 +44,7 @@ class UriTemplatetCombineSpec : WordSpec({
         }
 
         "present IP4 address" {
-            UriTemplate("{scheme}://{subDomain}{.IP4*}".trimMargin()).toString(variables) shouldBe
+            UriTemplate("{scheme}://{subDomain}{.IP4*}".trimMargin()).expand(variables) shouldBe
                     "http://sub.192.168.001.1".trimIndent()
 
         }

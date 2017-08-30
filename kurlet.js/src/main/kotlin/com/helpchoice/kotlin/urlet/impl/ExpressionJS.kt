@@ -1,6 +1,6 @@
 package com.helpchoice.kotlin.urlet.impl
 
-import com.helpchoice.kotlin.urlet.Placeholder
+import com.helpchoice.kotlin.urlet.Expression
 
 external fun encodeURIComponent(str: String): String
 
@@ -9,7 +9,7 @@ external fun encodeURIComponent(str: String): String
  *
  *
  */
-class PlaceholderJS(prefix: String, placeholder: String?): Placeholder(prefix, placeholder) {
+class PlaceholderJS(prefix: String, placeholder: String?): Expression(prefix, placeholder) {
     override fun encode(str: String): String {
         return encodeURIComponent(str)
     }

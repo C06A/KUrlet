@@ -21,7 +21,7 @@ class UriTemplatetSpec : WordSpec({
                     , row("{hello}", "Hello%20World%21")
             )
             forAll(level1) { expression, expansion ->
-                UriTemplate(expression).toString(variables) shouldBe expansion
+                UriTemplate(expression).expand(variables) shouldBe expansion
             }
         }
     }
@@ -41,7 +41,7 @@ class UriTemplatetSpec : WordSpec({
                     , row("here?ref={+path}", "here?ref=/foo/bar")
             )
             forAll(level2) { expression, expansion ->
-                UriTemplate(expression).toString(variables) shouldBe expansion
+                UriTemplate(expression).expand(variables) shouldBe expansion
             }
         }
         "Fragment expansion, crosshatch-prefixed" {
@@ -51,7 +51,7 @@ class UriTemplatetSpec : WordSpec({
                     , row("X{#hello}", "X#Hello%20World!")
             )
             forAll(level2) { expression, expansion ->
-                UriTemplate(expression).toString(variables) shouldBe expansion
+                UriTemplate(expression).expand(variables) shouldBe expansion
             }
         }
     }
@@ -72,7 +72,7 @@ class UriTemplatetSpec : WordSpec({
                     , row("{x,hello,y}", "1024,Hello%20World%21,768")
             )
             forAll(level3) { expression, expansion ->
-                UriTemplate(expression).toString(variables) shouldBe expansion
+                UriTemplate(expression).expand(variables) shouldBe expansion
             }
         }
         "Reserved expansion with multiple variables" {
@@ -82,7 +82,7 @@ class UriTemplatetSpec : WordSpec({
                     , row("{+path,x}/here", "/foo/bar,1024/here")
             )
             forAll(level3) { expression, expansion ->
-                UriTemplate(expression).toString(variables) shouldBe expansion
+                UriTemplate(expression).expand(variables) shouldBe expansion
             }
         }
         "Fragment expansion with multiple variables" {
@@ -92,7 +92,7 @@ class UriTemplatetSpec : WordSpec({
                     , row("{#path,x}/here", "#/foo/bar,1024/here")
             )
             forAll(level3) { expression, expansion ->
-                UriTemplate(expression).toString(variables) shouldBe expansion
+                UriTemplate(expression).expand(variables) shouldBe expansion
             }
         }
         "Label expansion, dot-prefixed" {
@@ -102,7 +102,7 @@ class UriTemplatetSpec : WordSpec({
                     , row("X{.x,y}", "X.1024.768")
             )
             forAll(level3) { expression, expansion ->
-                UriTemplate(expression).toString(variables) shouldBe expansion
+                UriTemplate(expression).expand(variables) shouldBe expansion
             }
         }
         "Path segments, slash-prefixed" {
@@ -112,7 +112,7 @@ class UriTemplatetSpec : WordSpec({
                     , row("{/var,x}/here", "/value/1024/here")
             )
             forAll(level3) { expression, expansion ->
-                UriTemplate(expression).toString(variables) shouldBe expansion
+                UriTemplate(expression).expand(variables) shouldBe expansion
             }
         }
         "Path-style parameters, semicolon-prefixed" {
@@ -122,7 +122,7 @@ class UriTemplatetSpec : WordSpec({
                     , row("{;x,y,empty}", ";x=1024;y=768;empty")
             )
             forAll(level3) { expression, expansion ->
-                UriTemplate(expression).toString(variables) shouldBe expansion
+                UriTemplate(expression).expand(variables) shouldBe expansion
             }
         }
         "Form-style query, ampersand-separated" {
@@ -132,7 +132,7 @@ class UriTemplatetSpec : WordSpec({
                     , row("{?x,y,empty}", "?x=1024&y=768&empty=")
             )
             forAll(level3) { expression, expansion ->
-                UriTemplate(expression).toString(variables) shouldBe expansion
+                UriTemplate(expression).expand(variables) shouldBe expansion
             }
         }
         "Form-style query continuation" {
@@ -142,7 +142,7 @@ class UriTemplatetSpec : WordSpec({
                     , row("{&x,y,empty}", "&x=1024&y=768&empty=")
             )
             forAll(level3) { expression, expansion ->
-                UriTemplate(expression).toString(variables) shouldBe expansion
+                UriTemplate(expression).expand(variables) shouldBe expansion
             }
         }
     }
@@ -166,7 +166,7 @@ class UriTemplatetSpec : WordSpec({
                     , row("{keys*}", "semi=%3B,dot=.,comma=%2C")
             )
             forAll(level4) { expression, expansion ->
-                UriTemplate(expression).toString(variables) shouldBe expansion
+                UriTemplate(expression).expand(variables) shouldBe expansion
             }
         }
         "Reserved expansion with value modifiers" {
@@ -179,7 +179,7 @@ class UriTemplatetSpec : WordSpec({
                     , row("{+keys*}", "semi=;,dot=.,comma=,")
             )
             forAll(level4) { expression, expansion ->
-                UriTemplate(expression).toString(variables) shouldBe expansion
+                UriTemplate(expression).expand(variables) shouldBe expansion
             }
         }
         "Fragment expansion with value modifiers" {
@@ -192,7 +192,7 @@ class UriTemplatetSpec : WordSpec({
                     , row("{#keys*}", "#semi=;,dot=.,comma=,")
             )
             forAll(level4) { expression, expansion ->
-                UriTemplate(expression).toString(variables) shouldBe expansion
+                UriTemplate(expression).expand(variables) shouldBe expansion
             }
         }
         "Label expansion, dot-prefixed" {
@@ -205,7 +205,7 @@ class UriTemplatetSpec : WordSpec({
                     , row("X{.keys*}", "X.semi=%3B.dot=..comma=%2C")
             )
             forAll(level4) { expression, expansion ->
-                UriTemplate(expression).toString(variables) shouldBe expansion
+                UriTemplate(expression).expand(variables) shouldBe expansion
             }
         }
         "Path segments, slash-prefixed" {
@@ -219,7 +219,7 @@ class UriTemplatetSpec : WordSpec({
                     , row("{/keys*}", "/semi=%3B/dot=./comma=%2C")
             )
             forAll(level4) { expression, expansion ->
-                UriTemplate(expression).toString(variables) shouldBe expansion
+                UriTemplate(expression).expand(variables) shouldBe expansion
             }
         }
         "Path-style parameters, semicolon-prefixed" {
@@ -232,7 +232,7 @@ class UriTemplatetSpec : WordSpec({
                     , row("{;keys*}", ";semi=%3B;dot=.;comma=%2C")
             )
             forAll(level4) { expression, expansion ->
-                UriTemplate(expression).toString(variables) shouldBe expansion
+                UriTemplate(expression).expand(variables) shouldBe expansion
             }
         }
         "Form-style query, ampersand-separated" {
@@ -245,7 +245,7 @@ class UriTemplatetSpec : WordSpec({
                     , row("{?keys*}", "?semi=%3B&dot=.&comma=%2C")
             )
             forAll(level4) { expression, expansion ->
-                UriTemplate(expression).toString(variables) shouldBe expansion
+                UriTemplate(expression).expand(variables) shouldBe expansion
             }
         }
         "Form-style query continuation" {
@@ -259,7 +259,7 @@ class UriTemplatetSpec : WordSpec({
                     , row("", "")
             )
             forAll(level4) { expression, expansion ->
-                UriTemplate(expression).toString(variables) shouldBe expansion
+                UriTemplate(expression).expand(variables) shouldBe expansion
             }
         }
     }

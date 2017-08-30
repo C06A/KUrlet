@@ -1,6 +1,6 @@
 package com.helpchoice.kotlin.urlet.impl
 
-import com.helpchoice.kotlin.urlet.Placeholder
+import com.helpchoice.kotlin.urlet.Expression
 import java.net.URLEncoder
 
 /**
@@ -8,7 +8,7 @@ import java.net.URLEncoder
  *
  *
  */
-class PlaceholderJvm(prefix: String, placeholder: String?): Placeholder(prefix, placeholder) {
+class ExpressionJvm(prefix: String, placeholder: String?): Expression(prefix, placeholder) {
     override fun encode(str: String): String {
         return URLEncoder.encode(str, Charsets.UTF_8.name())
     }

@@ -1,6 +1,6 @@
 package com.helpchoice.kotlin.urlet.impl
 
-import com.helpchoice.kotlin.urlet.Placeholder
+import com.helpchoice.kotlin.urlet.Expression
 import com.helpchoice.kotlin.urlet.UriTempl
 
 
@@ -10,7 +10,7 @@ import com.helpchoice.kotlin.urlet.UriTempl
  */
 class UriTemplate(template: String): UriTempl(template) {
 
-    override fun makePlaceholder(prefix: String, holder: String?): Placeholder {
+    override fun makePlaceholder(prefix: String, holder: String?): Expression {
         return PlaceholderJS(prefix, holder)
     }
 }

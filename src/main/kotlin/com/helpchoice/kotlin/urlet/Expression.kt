@@ -5,7 +5,7 @@ package com.helpchoice.kotlin.urlet
  *
  *
  */
-abstract class Placeholder(private val prefix: String, placeholder: String?) {
+abstract class Expression(private val prefix: String, placeholder: String?) {
     val type: Char?
     var names: Collection<Triple<String, Int?, Char?>> = listOf()
 

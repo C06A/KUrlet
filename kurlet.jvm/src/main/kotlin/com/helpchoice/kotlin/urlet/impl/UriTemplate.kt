@@ -1,6 +1,6 @@
 package com.helpchoice.kotlin.urlet.impl
 
-import com.helpchoice.kotlin.urlet.Placeholder
+import com.helpchoice.kotlin.urlet.Expression
 import com.helpchoice.kotlin.urlet.UriTempl
 import java.net.URL
 
@@ -11,10 +11,10 @@ import java.net.URL
 class UriTemplate(template: String): UriTempl(template) {
 
     fun toURL(with: Map<String, Any?>): URL {
-        return URL(toString(with))
+        return URL(expand(with))
     }
 
-    override fun makePlaceholder(prefix: String, holder: String?): Placeholder {
-        return PlaceholderJvm(prefix, holder)
+    override fun makePlaceholder(prefix: String, holder: String?): Expression {
+        return ExpressionJvm(prefix, holder)
     }
 }

@@ -6,7 +6,7 @@ package com.helpchoice.kotlin.urlet
  * This abstract class get implememnted separetely for JVM and JS
  */
 abstract class UriTempl(private val template: String) {
-    private val placeholders: MutableCollection<Placeholder> = mutableListOf()
+    private val placeholders: MutableCollection<Expression> = mutableListOf()
 
     init {
         template.split('}').filter { it.isNotEmpty() }.forEach {
@@ -23,7 +23,7 @@ abstract class UriTempl(private val template: String) {
         return template
     }
 
-    fun toString(with: Map<String, Any?>): String {
+    fun expand(with: Map<String, Any?>): String {
         val out = StringBuilder()
         placeholders.forEach {
             it.appendTo(out, with)
@@ -32,10 +32,10 @@ abstract class UriTempl(private val template: String) {
     }
 
     fun names(): Iterable<String> {
-        return placeholders.flatMap { holder: Placeholder ->
+        return placeholders.flatMap { holder: Expression ->
             holder.getNames()
         }.distinct()
     }
 
-    abstract fun makePlaceholder(prefix: String, holder: String?): Placeholder
+    abstract fun makePlaceholder(prefix: String, holder: String?): Expression
 }
