@@ -1,0 +1,50 @@
+group 'com.helpchoice.kotlin'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    ext.kotlin_version = '1.1.4-2'
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'kotlin'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile 'io.kotlintest:kotlintest:2.0.5'
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+task copySrc(type: Copy) {
+    group 'build'
+
+    destinationDir file("${projectDir}")
+
+    into 'src/main/kotlin', {
+        from project(':').file('src/main/kotlin')
+    }
+}
+
+compileKotlin {
+    dependsOn copySrc
+}
