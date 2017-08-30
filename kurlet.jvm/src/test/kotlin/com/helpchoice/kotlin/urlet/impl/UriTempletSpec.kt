@@ -263,4 +263,37 @@ class UriTemplatetSpec : WordSpec({
             }
         }
     }
+
+    "Overview" {
+        val tests = table(
+                headers("Template", "Expansion", "With")
+                , row("http://example.com/~{username}/", "http://example.com/~fred/", mapOf<String, Any?>("username" to "fred"))
+                , row("http://example.com/~{username}/", "http://example.com/~mark/", mapOf<String, Any?>("username" to "mark"))
+                , row("http://example.com/dictionary/{term:1}/{term}", "http://example.com/dictionary/c/cat", mapOf<String, Any?>("term" to "cat"))
+                , row("http://example.com/dictionary/{term:1}/{term}", "http://example.com/dictionary/d/dog", mapOf<String, Any?>("term" to "dog"))
+                , row("http://example.com/search{?q,lang}", "http://example.com/search?q=cat&lang=en", mapOf<String, Any?>("q" to "cat", "lang" to "en"))
+                , row("http://example.com/search{?q,lang}", "http://example.com/search?q=chien&lang=fr", mapOf<String, Any?>("q" to "chien", "lang" to "fr"))
+                , row("http://www.example.com/foo{?query,number}", "http://www.example.com/foo?query=mycelium&number=100", mapOf<String, Any?>("query" to "mycelium", "number" to 100))
+                , row("http://www.example.com/foo{?query,number}", "http://www.example.com/foo?number=100", mapOf<String, Any?>("number" to 100))
+                , row("http://www.example.com/foo{?query,number}", "http://www.example.com/foo", mapOf<String, Any?>())
+        )
+
+        forAll(tests) { template: String, expansion: String, with: Map<String, Any?> ->
+            UriTemplate(template).expand(with) shouldBe expansion
+        }
+    }
+
+    "Composite Values" {
+        val tests = table(
+                headers("Template", "Expansion", "With")
+                , row("/mapper{?address*}", "/mapper?city=Newport%20Beach&state=CA", mapOf<String, Any?>("address" to mapOf("city" to "Newport Beach", "state" to "CA")))
+                , row("find{?year*}", "find?year=1965&year=2000&year=2012", mapOf<String, Any?>("year" to listOf("1965", 2000, "2012")))
+                , row("www{.dom*}", "www.example.com", mapOf<String, Any?>("dom" to listOf("example", "com")))
+        )
+
+        forAll(tests) { template: String, expansion: String, with: Map<String, Any?> ->
+            UriTemplate(template).expand(with) shouldBe expansion
+        }
+
+    }
 })

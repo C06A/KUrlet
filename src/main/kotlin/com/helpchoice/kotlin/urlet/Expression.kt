@@ -140,7 +140,7 @@ abstract class Expression(private val prefix: String, placeholder: String?) {
             }
 
             if (type == null || "+#?".contains(type)) {
-                preparator = separator
+                preparator = if(variable != null) separator else preparator
             }
         }
     }
