@@ -1,5 +1,7 @@
-package com.helpchoice.kotlin.urlet
+package com.helpchoice.kotlin.urlet.impl
 
+import com.helpchoice.kotlin.urlet.Placeholder
+import com.helpchoice.kotlin.urlet.UriTempl
 import java.net.URL
 
 /**

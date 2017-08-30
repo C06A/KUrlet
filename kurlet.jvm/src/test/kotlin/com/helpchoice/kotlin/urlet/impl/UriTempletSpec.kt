@@ -1,6 +1,6 @@
 package com.helpchoice.kotlin.urlet.impl
 
-import com.helpchoice.kotlin.urlet.UriTemplate
+import com.helpchoice.kotlin.urlet.impl.UriTemplate
 import io.kotlintest.matchers.shouldBe
 import io.kotlintest.properties.forAll
 import io.kotlintest.properties.headers

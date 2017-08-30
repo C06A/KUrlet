@@ -1,4 +1,6 @@
-package com.helpchoice.kotlin.urlet
+package com.helpchoice.kotlin.urlet.impl
+
+import com.helpchoice.kotlin.urlet.Placeholder
 
 external fun encodeURIComponent(str: String): String
 
