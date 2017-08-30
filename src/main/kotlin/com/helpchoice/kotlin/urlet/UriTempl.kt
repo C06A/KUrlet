@@ -2,7 +2,8 @@ package com.helpchoice.kotlin.urlet
 
 /**
  * Implements the substitution into UriTemplate according to https://tools.ietf.org/html/rfc6570
- *
+ * <p/>
+ * This abstract class get implememnted separetely for JVM and JS
  */
 abstract class UriTempl(private val template: String) {
     private val placeholders: MutableCollection<Placeholder> = mutableListOf()
