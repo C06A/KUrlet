@@ -31,5 +31,11 @@ abstract class UriTempl(private val template: String) {
         return out.toString()
     }
 
+    fun names(): Iterable<String> {
+        return placeholders.flatMap { holder: Placeholder ->
+            holder.getNames()
+        }.distinct()
+    }
+
     abstract fun makePlaceholder(prefix: String, holder: String?): Placeholder
 }

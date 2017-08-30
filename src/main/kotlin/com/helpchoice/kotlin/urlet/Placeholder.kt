@@ -7,7 +7,7 @@ package com.helpchoice.kotlin.urlet
  */
 abstract class Placeholder(private val prefix: String, placeholder: String?) {
     val type: Char?
-    var names: Collection<Triple<String, Int?, Char?>> = mutableListOf()
+    var names: Collection<Triple<String, Int?, Char?>> = listOf()
 
     init {
         if (placeholder == null) {
@@ -142,6 +142,12 @@ abstract class Placeholder(private val prefix: String, placeholder: String?) {
             if (type == null || "+#?".contains(type)) {
                 preparator = separator
             }
+        }
+    }
+
+    fun getNames(): Iterable<String> {
+        return names.map { name: Triple<String, Int?, Char?> ->
+            name.first
         }
     }
 

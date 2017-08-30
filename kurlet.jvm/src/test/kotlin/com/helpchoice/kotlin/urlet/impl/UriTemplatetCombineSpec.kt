@@ -49,4 +49,23 @@ class UriTemplatetCombineSpec : WordSpec({
 
         }
     }
+
+    "Collecting names" should {
+        "extract placeholders' list" {
+            UriTemplate("""
+            |{scheme}://
+            |{uid}@
+            |{subDomain}{.domains*,tld}
+            |:{port}
+            |{/singlePath}{/multiPath*,singlePath}
+            |{;singleParam}{;mapParam*,singleParam}
+            |{#fragment}
+            |{?queryList,query,queryMap*}
+            |{&queryList,query,queryMap*}
+            |""".trimMargin().replace("\n", "")).names() shouldBe
+                    listOf("scheme", "uid", "subDomain", "domains", "tld", "port"
+                            , "singlePath", "multiPath", "singleParam", "mapParam", "fragment"
+                            , "queryList", "query", "queryMap")
+        }
+    }
 })
