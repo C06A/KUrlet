@@ -136,10 +136,11 @@ abstract class Placeholder(private val prefix: String, placeholder: String?) {
                     }
 
                     buffer.append(str)
-                    if (type == null || "+#?".contains(type)) {
-                        preparator = separator
-                    }
                 }
+            }
+
+            if (type == null || "+#?".contains(type)) {
+                preparator = separator
             }
         }
     }
