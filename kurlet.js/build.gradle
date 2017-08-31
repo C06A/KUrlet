@@ -28,18 +28,10 @@ dependencies {
     testCompile 'io.kotlintest:kotlintest:2.0.5'
 }
 
-task copySrc(type: Copy) {
-    group 'build'
-
-    destinationDir file("${projectDir}")
-
-    into 'src/main/kotlin', {
-        from project(':').file('src/main/kotlin')
-    }
+compileKotlin2Js {
+    kotlinOptions.moduleKind = "umd"
 }
 
-compileKotlin2Js {
-    dependsOn copySrc
-
-    kotlinOptions.moduleKind = "umd"
+sourceSets {
+    main.kotlin.srcDirs += project(':').file('src/main/kotlin')
 }
