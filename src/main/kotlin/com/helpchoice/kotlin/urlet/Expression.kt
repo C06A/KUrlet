@@ -65,7 +65,7 @@ abstract class Expression(private val prefix: String, placeholder: String?) {
 
             fun incode(value: String, limit: Int?): String {
                 var str = value
-                str = str?.substring(0, minOf(str.length, limit ?: str.length))
+                str = str.substring(0, minOf(str.length, limit ?: str.length))
                 str = if (type == null || !"+#".contains(type)) {
                     encode(str).replace("+", "%20")
                 } else {
@@ -78,7 +78,7 @@ abstract class Expression(private val prefix: String, placeholder: String?) {
                 variable is Collection<*> -> {
                     if (variable.isNotEmpty()) {
                         var prefix = "$type"
-                        var infix = separator
+                        var infix: String
                         when (type) {
                             null, '+' -> {
                                 prefix = ""
