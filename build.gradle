@@ -1,5 +1,5 @@
 group 'com.helpchoice.kotlin'
-version '1.0.1'
+version '1.0.2-SNAPSHOT'
 
 buildscript {
     ext.kotlin_version = '1.2.21'
