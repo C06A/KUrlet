@@ -3,6 +3,24 @@
 This project (sounds "`qur-let`") includes the code to work with URI Template standard (https://tools.ietf.org/html/rfc6570)
 implemented in Kotlin.
 
+## Dependency on KUrlet library
+
+In order to use this library in Kotlin.JVM project
+include in your `gradle.build` file:
+
+```groovy
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://raw.githubusercontent.com/C06A/artifacts/libs-release'
+    }
+}
+
+dependencies {
+    compile 'com.helpchoice.kotlin:kurlet.jvm:1.0.1'
+}
+```
+
 ## Project structure
 
 The project is built on Gradle and includes 2 submodules. Root-level module includes the main implementation code
