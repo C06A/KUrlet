@@ -31,6 +31,10 @@ abstract class UriTempl(private val template: String) {
         return out.toString()
     }
 
+    fun expand(vararg with: Pair<String, Any?>): String {
+        return expand(mapOf(*with))
+    }
+
     fun names(): Iterable<String> {
         return placeholders.flatMap { holder: Expression ->
             holder.getNames()

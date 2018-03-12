@@ -1,6 +1,10 @@
 package com.helpchoice.kotlin.urlet.impl
 
 import io.kotlintest.matchers.shouldBe
+import io.kotlintest.properties.forAll
+import io.kotlintest.properties.headers
+import io.kotlintest.properties.row
+import io.kotlintest.properties.table
 import io.kotlintest.specs.WordSpec
 
 class UriTemplatetCombineSpec : WordSpec({
@@ -44,8 +48,7 @@ class UriTemplatetCombineSpec : WordSpec({
         }
 
         "present IP4 address" {
-            UriTemplate("{scheme}://{subDomain}{.IP4*}".trimMargin()).expand(variables) shouldBe
-                    "http://sub.192.168.001.1".trimIndent()
+            UriTemplate("{scheme}://{subDomain}{.IP4*}").expand(variables) shouldBe "http://sub.192.168.001.1"
 
         }
     }
@@ -66,6 +69,25 @@ class UriTemplatetCombineSpec : WordSpec({
                     listOf("scheme", "uid", "subDomain", "domains", "tld", "port"
                             , "singlePath", "multiPath", "singleParam", "mapParam", "fragment"
                             , "queryList", "query", "queryMap")
+        }
+    }
+
+    "using vararg instead of map" should {
+        "Simple string expansion" {
+            val level1 = table(
+                    headers("Expression", "Expansion")
+                    , row("{var}", "value")
+                    , row("{hello}", "Hello%20World%21")
+                    , row("http://{var}{.domain*}{/path*}{?var}", "http://value.dom.tld/folder/file?var=value")
+            )
+            forAll(level1) { expression, expansion ->
+                UriTemplate(expression).expand(
+                        "var" to "value"
+                        , "hello" to "Hello World!"
+                        , "domain" to listOf("dom", "tld")
+                        , "path" to listOf("folder", "file")
+                ) shouldBe expansion
+            }
         }
     }
 })
