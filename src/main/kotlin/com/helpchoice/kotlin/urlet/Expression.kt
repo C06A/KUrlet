@@ -23,10 +23,10 @@ abstract class Expression(private val prefix: String, placeholder: String?) {
 
             holder.split(',').map { variable: String ->
                 val multiplier = if (variable.last() == '*') '*' else null
-                var name = variable
-                multiplier?.let {
-                    name = variable.dropLast(1)
-                }
+                val name =
+                        multiplier?.let {
+                            variable.dropLast(1)
+                        } ?: variable
                 val splits = name.split(':')
                 if (splits.size > 1) {
                     names += Triple(splits[0], splits[1].toInt(), multiplier)
@@ -140,7 +140,7 @@ abstract class Expression(private val prefix: String, placeholder: String?) {
             }
 
             if (type == null || "+#?".contains(type)) {
-                preparator = if(variable != null) separator else preparator
+                preparator = if (variable != null) separator else preparator
             }
         }
     }
