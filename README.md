@@ -1,23 +1,23 @@
-# KUrilet -- Kotlin URI tempLET
+# <span style="color:blue">KUrlet</span> -- <span style="color:blue">K</span>otlin <span style="color:blue">UR</span>i temp<span style="color:blue">LET</span>
+[![](https://jitpack.io/v/com.helpchoice/KUrlet.svg)](https://jitpack.io/#com.helpchoice/KUrlet)
 
-This project (sounds "`qur-let`") includes the code to work with URI Template standard (https://tools.ietf.org/html/rfc6570)
-implemented in Kotlin.
+This project (sounds "`qur-let`") includes the library
+to work with URI Template standard (https://tools.ietf.org/html/rfc6570) implemented as Kotlin multiplatform project.
 
 ## Dependency on KUrlet library
 
-In order to use this library in Kotlin.JVM project
-include in your `gradle.build` file:
+In order to use this library in other Kotlin project add at the end of repositories list of your `gradle.build` file:
 
-```groovy
+```kotlin
 repositories {
-    mavenCentral()
-    maven {
-        url 'https://raw.githubusercontent.com/C06A/artifacts/libs-release'
-    }
+    ...
+    maven(url = 'https://jitpack.io')
 }
-
+```
+... and in dependencies
+```kotlin
 dependencies {
-    compile 'com.helpchoice.kotlin:kurlet.jvm:1.0.1'
+    implementation("com.helpchoice:KUrlet:2.0.0")
 }
 ```
 

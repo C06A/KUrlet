@@ -24,9 +24,9 @@ abstract class Expression(private val prefix: String, placeholder: String?) {
             holder.split(',').map { variable: String ->
                 val multiplier = if (variable.last() == '*') '*' else null
                 val name =
-                        multiplier?.let {
-                            variable.dropLast(1)
-                        } ?: variable
+                    multiplier?.let {
+                        variable.dropLast(1)
+                    } ?: variable
                 val splits = name.split(':')
                 if (splits.size > 1) {
                     names += Triple(splits[0], splits[1].toInt(), multiplier)
@@ -118,7 +118,7 @@ abstract class Expression(private val prefix: String, placeholder: String?) {
                             mapped.joinTo(buffer, separator, preparator)
                         } else {
                             mapped.joinTo(buffer, ","
-                                    , preparator + if (type != null && ";?&".contains(type)) "${varDeclaration.first}=" else "")
+                                , preparator + if (type != null && ";?&".contains(type)) "${varDeclaration.first}=" else "")
                         }
                     }
                 }

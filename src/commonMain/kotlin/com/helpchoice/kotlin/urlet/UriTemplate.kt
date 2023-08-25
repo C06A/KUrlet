@@ -10,7 +10,7 @@ abstract class UriTempl(private val template: String) {
 
     init {
         template.split('}').filter { it.isNotEmpty() }.forEach {
-                val prefVar = it.split('{')
+            val prefVar = it.split('{')
             if(prefVar.size > 1) {
                 placeholders += makePlaceholder(prefVar[0], prefVar[1])
             } else {
