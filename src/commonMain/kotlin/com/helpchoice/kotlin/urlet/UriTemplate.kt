@@ -5,16 +5,16 @@ package com.helpchoice.kotlin.urlet
  * <p/>
  * This abstract class get implememnted separetely for JVM and JS
  */
-abstract class UriTempl(private val template: String) {
+class UriTemplate(private val template: String) {
     private val placeholders: MutableCollection<Expression> = mutableListOf()
 
     init {
         template.split('}').filter { it.isNotEmpty() }.forEach {
-            val prefVar = it.split('{')
+                val prefVar = it.split('{')
             if(prefVar.size > 1) {
-                placeholders += makePlaceholder(prefVar[0], prefVar[1])
+                placeholders += Expression(prefVar[0], prefVar[1])
             } else {
-                placeholders += makePlaceholder(prefVar[0], null)
+                placeholders += Expression(prefVar[0], null)
             }
         }
     }
@@ -40,6 +40,4 @@ abstract class UriTempl(private val template: String) {
             holder.getNames()
         }.distinct()
     }
-
-    abstract fun makePlaceholder(prefix: String, holder: String?): Expression
 }
