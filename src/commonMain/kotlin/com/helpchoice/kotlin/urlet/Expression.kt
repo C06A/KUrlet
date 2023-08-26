@@ -19,9 +19,9 @@ class Expression(private val prefix: String, placeholder: String?) {
                     null to this
                 }.let { (type, variable) ->
                     type to variable.split(',')
-                        .fold(listOf<Placeholder>()) { list, variable ->
-                            val multiplier = variable.last() == '*'
-                            val name = if (multiplier) variable.dropLast(1) else variable
+                        .fold(listOf<Placeholder>()) { list, varName ->
+                            val multiplier = varName.last() == '*'
+                            val name = if (multiplier) varName.dropLast(1) else varName
                             val splits = name.split(':', limit = 2)
                             list + Placeholder(
                                 splits[0],
@@ -47,7 +47,7 @@ class Expression(private val prefix: String, placeholder: String?) {
         }
     }
 
-    private inline fun pctEncode(c: Char): String = c.code.pctEncode()
+    private fun pctEncode(c: Char): String = c.code.pctEncode()
 
     fun appendTo(buffer: StringBuilder, with: Map<String, Any?>) {
         buffer.append(prefix)

@@ -1,9 +1,10 @@
 plugins {
     kotlin("multiplatform") version "1.7.10"
+    id("convention.publication")
 }
 
 group = "com.helpchoice.kotlin"
-version = "2.0.0-SNAPSHOT"
+version = "2.0.0"
 
 repositories {
     mavenCentral()
