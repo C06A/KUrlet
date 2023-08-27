@@ -55,292 +55,331 @@ class UrlTemplateParsingTest {
     fun valueListAmpersent() = assertEquals(listOf("var", "hello"), parse("{&var,hello}"))
 
     @Test
-    fun valueModified() = assertEquals(listOf("var", "limited", "expended", "both"),
-        parse("{var}{limited:3}{expended*}{both:5*}"))
+    fun valueModified() = assertEquals(
+        listOf("var", "limited", "expended", "both"),
+        parse("{var}{limited:3}{expended*}{both*:5}")
+    )
 
     @Test
-    fun valueModifiedList() = assertEquals(listOf("var", "limited", "expended", "both"),
-        parse("{var,limited:3,expended*,both:5*}"))
+    fun valueModifiedList() = assertEquals(
+        listOf("var", "limited", "expended", "both"),
+        parse("{var,limited:3,expended*,both*:5}")
+    )
 
     @Test
-    fun valuePlusModified() = assertEquals(listOf("var", "limited", "expended", "both"),
-        parse("{+var}{+limited:3}{+expended*}{+both:5*}"))
+    fun valuePlusModified() = assertEquals(
+        listOf("var", "limited", "expended", "both"),
+        parse("{+var}{+limited:3}{+expended*}{+both*:5}")
+    )
 
     @Test
-    fun valuePlusModifiedList() = assertEquals(listOf("var", "limited", "expended", "both"),
-        parse("{+var,limited:3,expended*,both:5*}"))
+    fun valuePlusModifiedList() = assertEquals(
+        listOf("var", "limited", "expended", "both"),
+        parse("{+var,limited:3,expended*,both*:5}")
+    )
 
     @Test
-    fun valuePoundModified() = assertEquals(listOf("var", "limited", "expended", "both"),
-        parse("{#var}{#limited:3}{#expended*}{#both:5*}"))
+    fun valuePoundModified() = assertEquals(
+        listOf("var", "limited", "expended", "both"),
+        parse("{#var}{#limited:3}{#expended*}{#both*:5}")
+    )
 
     @Test
-    fun valuePoundModifiedList() = assertEquals(listOf("var", "limited", "expended", "both"),
-        parse("{#var,limited:3,expended*,both:5*}"))
+    fun valuePoundModifiedList() = assertEquals(
+        listOf("var", "limited", "expended", "both"),
+        parse("{#var,limited:3,expended*,both*:5}")
+    )
 
     @Test
-    fun valueDotModified() = assertEquals(listOf("var", "limited", "expended", "both"),
-        parse("{.var}{.limited:3}{.expended*}{.both:5*}"))
+    fun valueDotModified() = assertEquals(
+        listOf("var", "limited", "expended", "both"),
+        parse("{.var}{.limited:3}{.expended*}{.both*:5}")
+    )
 
     @Test
-    fun valueDotModifiedList() = assertEquals(listOf("var", "limited", "expended", "both"),
-        parse("{.var,limited:3,expended*,both:5*}"))
+    fun valueDotModifiedList() = assertEquals(
+        listOf("var", "limited", "expended", "both"),
+        parse("{.var,limited:3,expended*,both*:5}")
+    )
 
     @Test
-    fun valueSlashModified() = assertEquals(listOf("var", "limited", "expended", "both"),
-        parse("{/var}{/limited:3}{/expended*}{/both:5*}"))
+    fun valueSlashModified() = assertEquals(
+        listOf("var", "limited", "expended", "both"),
+        parse("{/var}{/limited:3}{/expended*}{/both*:5}")
+    )
 
     @Test
-    fun valueSlashModifiedList() = assertEquals(listOf("var", "limited", "expended", "both"),
-        parse("{/var,limited:3,expended*,both:5*}"))
+    fun valueSlashModifiedList() = assertEquals(
+        listOf("var", "limited", "expended", "both"),
+        parse("{/var,limited:3,expended*,both*:5}")
+    )
 
     @Test
-    fun valueSemiModified() = assertEquals(listOf("var", "limited", "expended", "both"),
-        parse("{;var}{;limited:3}{;expended*}{;both:5*}"))
+    fun valueSemiModified() = assertEquals(
+        listOf("var", "limited", "expended", "both"),
+        parse("{;var}{;limited:3}{;expended*}{;both*:5}")
+    )
 
     @Test
-    fun valueSemiModifiedList() = assertEquals(listOf("var", "limited", "expended", "both"),
-        parse("{;var,limited:3,expended*,both:5*}"))
+    fun valueSemiModifiedList() = assertEquals(
+        listOf("var", "limited", "expended", "both"),
+        parse("{;var,limited:3,expended*,both*:5}")
+    )
 
     @Test
-    fun valueQuestionModified() = assertEquals(listOf("var", "limited", "expended", "both"),
-        parse("{?var}{?limited:3}{?expended*}{?both:5*}"))
+    fun valueQuestionModified() = assertEquals(
+        listOf("var", "limited", "expended", "both"),
+        parse("{?var}{?limited:3}{?expended*}{?both*:5}")
+    )
 
     @Test
-    fun valueQuestionModifiedList() = assertEquals(listOf("var", "limited", "expended", "both"),
-        parse("{?var,limited:3,expended*,both:5*}"))
+    fun valueQuestionModifiedList() = assertEquals(
+        listOf("var", "limited", "expended", "both"),
+        parse("{?var,limited:3,expended*,both*:5}")
+    )
 
     @Test
-    fun valueAmpersentModified() = assertEquals(listOf("var", "limited", "expended", "both"),
-        parse("{&var}{&limited:3}{&expended*}{&both:5*}"))
+    fun valueAmpersentModified() = assertEquals(
+        listOf("var", "limited", "expended", "both"),
+        parse("{&var}{&limited:3}{&expended*}{&both*:5}")
+    )
 
     @Test
-    fun valueAmpersentModifiedList() = assertEquals(listOf("var", "limited", "expended", "both"),
-        parse("{&var,limited:3,expended*,both:5*}"))
+    fun valueAmpersentModifiedList() = assertEquals(
+        listOf("var", "limited", "expended", "both"),
+        parse("{&var,limited:3,expended*,both*:5}")
+    )
 
     @Test
-    fun wholeURL() = assertEquals(listOf("domain", "path", "param1", "param2", "fragment"),
-        parse("http://www{.domain}/applet{/path}{?param1}&flag{&param2}&val=value{#fragment}"))
+    fun wholeURL() = assertEquals(
+        listOf("domain", "path", "param1", "param2", "fragment"),
+        parse("http://www{.domain}/applet{/path}{?param1}&flag{&param2}&val=value{#fragment}")
+    )
 }
 
-class UriTemplateLevel1Test {
-    @Test
-    fun value() = UriTemplateLevels.LEVEL1.test("{var}" to "value")
+class UriTemplateTest {
+    class UriTemplateLevel1Test {
+        @Test
+        fun value() = UriTemplateLevels.LEVEL1.test("{var}" to "value")
 
-    @Test
-    fun HelloWorld() = UriTemplateLevels.LEVEL1.test("{hello}" to "Hello%20World%21")
+        @Test
+        fun HelloWorld() = UriTemplateLevels.LEVEL1.test("{hello}" to "Hello%20World%21")
 
-    @Test
-    fun reserved() = UriTemplateLevels.LEVEL1.test("{mix}"
-            to "colon%3Aslash%2Fquestion%3Fampersent%26pound%23semi%3Bdot.cyr%04%10%04%11%04%12equal%3D")
-}
+        @Test
+        fun reserved() = UriTemplateLevels.LEVEL1.test(
+            "{mix}" to "colon%3Aslash%2Fquestion%3Fampersent%26pound%23semi%3Bdot.cyr%D0%90%D0%91%D0%92equal%3D"
+        )
+    }
 
-class UriTemplateLevel2Test {
-    @Test
-    fun level2_1() = UriTemplateLevels.LEVEL2.test("{+var}" to "value")
+    class UriTemplateLevel2Test {
+        @Test
+        fun level2_1() = UriTemplateLevels.LEVEL2.test("{+var}" to "value")
 
-    @Test
-    fun level2_2() = UriTemplateLevels.LEVEL2.test("{+hello}" to "Hello%20World!")
+        @Test
+        fun level2_2() = UriTemplateLevels.LEVEL2.test("{+hello}" to "Hello%20World!")
 
-    @Test
-    fun level2_3() = UriTemplateLevels.LEVEL2.test("{+path}/here" to "/foo/bar/here")
+        @Test
+        fun level2_3() = UriTemplateLevels.LEVEL2.test("{+path}/here" to "/foo/bar/here")
 
-    @Test
-    fun level2_4() = UriTemplateLevels.LEVEL2.test("here?ref={+path}" to "here?ref=/foo/bar")
+        @Test
+        fun level2_4() = UriTemplateLevels.LEVEL2.test("here?ref={+path}" to "here?ref=/foo/bar")
 
-    @Test
-    fun level2_5() = UriTemplateLevels.LEVEL2.test("X{#var}" to "X#value")
+        @Test
+        fun level2_5() = UriTemplateLevels.LEVEL2.test("X{#var}" to "X#value")
 
-    @Test
-    fun level2_6() = UriTemplateLevels.LEVEL2.test("X{#hello}" to "X#Hello%20World!")
+        @Test
+        fun level2_6() = UriTemplateLevels.LEVEL2.test("X{#hello}" to "X#Hello%20World!")
 
-    @Test
-    fun reservedPlus() =
-        UriTemplateLevels.LEVEL1.test("{+mix}"
-                to "colon:slash/question?ampersent&pound#semi;dot.cyr%04%10%04%11%04%12equal=")
+        @Test
+        fun reservedPlus() =
+            UriTemplateLevels.LEVEL1.test(
+                "{+mix}" to "colon:slash/question?ampersent&pound#semi;dot.cyr%D0%90%D0%91%D0%92equal="
+            )
 
-    @Test
-    fun reservedPound() =
-        UriTemplateLevels.LEVEL1.test("{#mix}"
-                to "#colon:slash/question?ampersent&pound#semi;dot.cyr%04%10%04%11%04%12equal=")
-}
+        @Test
+        fun reservedPound() =
+            UriTemplateLevels.LEVEL1.test(
+                "{#mix}" to "#colon:slash/question?ampersent&pound#semi;dot.cyr%D0%90%D0%91%D0%92equal="
+            )
+    }
 
-class UriTemplateLevel3Test {
-    @Test
-    fun level3_1() = UriTemplateLevels.LEVEL3.test("map?{x,y}" to "map?1024,768")
+    class UriTemplateLevel3Test {
+        @Test
+        fun level3_1() = UriTemplateLevels.LEVEL3.test("map?{x,y}" to "map?1024,768")
 
-    @Test
-    fun level3_2() = UriTemplateLevels.LEVEL3.test("{x,hello,y}" to "1024,Hello%20World%21,768")
+        @Test
+        fun level3_2() = UriTemplateLevels.LEVEL3.test("{x,hello,y}" to "1024,Hello%20World%21,768")
 
-    @Test
-    fun level3_3() = UriTemplateLevels.LEVEL3.test("{+x,hello,y}" to "1024,Hello%20World!,768")
+        @Test
+        fun level3_3() = UriTemplateLevels.LEVEL3.test("{+x,hello,y}" to "1024,Hello%20World!,768")
 
-    @Test
-    fun level3_4() = UriTemplateLevels.LEVEL3.test("{+path,x}/here" to "/foo/bar,1024/here")
+        @Test
+        fun level3_4() = UriTemplateLevels.LEVEL3.test("{+path,x}/here" to "/foo/bar,1024/here")
 
-    @Test
-    fun level3_5() = UriTemplateLevels.LEVEL3.test("{#x,hello,y}" to "#1024,Hello%20World!,768")
+        @Test
+        fun level3_5() = UriTemplateLevels.LEVEL3.test("{#x,hello,y}" to "#1024,Hello%20World!,768")
 
-    @Test
-    fun level3_6() = UriTemplateLevels.LEVEL3.test("{#path,x}/here" to "#/foo/bar,1024/here")
+        @Test
+        fun level3_6() = UriTemplateLevels.LEVEL3.test("{#path,x}/here" to "#/foo/bar,1024/here")
 
-    @Test
-    fun level3_7() = UriTemplateLevels.LEVEL3.test("X{.var}" to "X.value")
+        @Test
+        fun level3_7() = UriTemplateLevels.LEVEL3.test("X{.var}" to "X.value")
 
-    @Test
-    fun level3_8() = UriTemplateLevels.LEVEL3.test("X{.x,y}" to "X.1024.768")
+        @Test
+        fun level3_8() = UriTemplateLevels.LEVEL3.test("X{.x,y}" to "X.1024.768")
 
-    @Test
-    fun level3_9() = UriTemplateLevels.LEVEL3.test("{/var}" to "/value")
+        @Test
+        fun level3_9() = UriTemplateLevels.LEVEL3.test("{/var}" to "/value")
 
-    @Test
-    fun level3_10() = UriTemplateLevels.LEVEL3.test("{/var,x}/here" to "/value/1024/here")
+        @Test
+        fun level3_10() = UriTemplateLevels.LEVEL3.test("{/var,x}/here" to "/value/1024/here")
 
-    @Test
-    fun level3_11() = UriTemplateLevels.LEVEL3.test("{;x,y}" to ";x=1024;y=768")
+        @Test
+        fun level3_11() = UriTemplateLevels.LEVEL3.test("{;x,y}" to ";x=1024;y=768")
 
-    @Test
-    fun level3_12() = UriTemplateLevels.LEVEL3.test("{;x,y,empty}" to ";x=1024;y=768;empty")
+        @Test
+        fun level3_12() = UriTemplateLevels.LEVEL3.test("{;x,y,empty}" to ";x=1024;y=768;empty")
 
-    @Test
-    fun level3_13() = UriTemplateLevels.LEVEL3.test("{?x,y}" to "?x=1024&y=768")
+        @Test
+        fun level3_13() = UriTemplateLevels.LEVEL3.test("{?x,y}" to "?x=1024&y=768")
 
-    @Test
-    fun level3_14() = UriTemplateLevels.LEVEL3.test("{?x,y,empty}" to "?x=1024&y=768&empty=")
+        @Test
+        fun level3_14() = UriTemplateLevels.LEVEL3.test("{?x,y,empty}" to "?x=1024&y=768&empty=")
 
-    @Test
-    fun level3_15() = UriTemplateLevels.LEVEL3.test("?fixed=yes{&x}" to "?fixed=yes&x=1024")
+        @Test
+        fun level3_15() = UriTemplateLevels.LEVEL3.test("?fixed=yes{&x}" to "?fixed=yes&x=1024")
 
-    @Test
-    fun level3_16() = UriTemplateLevels.LEVEL3.test("{&x,y,empty}" to "&x=1024&y=768&empty=")
-}
+        @Test
+        fun level3_16() = UriTemplateLevels.LEVEL3.test("{&x,y,empty}" to "&x=1024&y=768&empty=")
+    }
 
-class UriTemplateLevel4Test {
-    @Test
-    fun level4_1() = UriTemplateLevels.LEVEL4.test("{var:3}" to "val")
+    class UriTemplateLevel4Test {
+        @Test
+        fun level4_1() = UriTemplateLevels.LEVEL4.test("{var:3}" to "val")
 
-    @Test
-    fun level4_2() = UriTemplateLevels.LEVEL4.test("{var:30}" to "value")
+        @Test
+        fun level4_2() = UriTemplateLevels.LEVEL4.test("{var:30}" to "value")
 
-    @Test
-    fun addition() = UriTemplateLevels.LEVEL4.test("{path}" to "%2Ffoo%2Fbar")
+        @Test
+        fun addition() = UriTemplateLevels.LEVEL4.test("{path}" to "%2Ffoo%2Fbar")
 
-    @Test
-    fun level4_3() = UriTemplateLevels.LEVEL4.test("{list}" to "red,green,blue")
+        @Test
+        fun level4_3() = UriTemplateLevels.LEVEL4.test("{list}" to "red,green,blue")
 
-    @Test
-    fun level4_4() = UriTemplateLevels.LEVEL4.test("{list*}" to "red,green,blue")
+        @Test
+        fun level4_4() = UriTemplateLevels.LEVEL4.test("{list*}" to "red,green,blue")
 
-    @Test
-    fun level4_5() = UriTemplateLevels.LEVEL4.test("{keys}" to "semi,%3B,dot,.,comma,%2C")
+        @Test
+        fun level4_5() = UriTemplateLevels.LEVEL4.test("{keys}" to "semi,%3B,dot,.,comma,%2C")
 
-    @Test
-    fun level4_6() = UriTemplateLevels.LEVEL4.test("{keys*}" to "semi=%3B,dot=.,comma=%2C")
+        @Test
+        fun level4_6() = UriTemplateLevels.LEVEL4.test("{keys*}" to "semi=%3B,dot=.,comma=%2C")
 
-    @Test
-    fun level4_7() = UriTemplateLevels.LEVEL4.test("{+path:6}/here" to "/foo/b/here")
+        @Test
+        fun level4_7() = UriTemplateLevels.LEVEL4.test("{+path:6}/here" to "/foo/b/here")
 
-    @Test
-    fun level4_8() = UriTemplateLevels.LEVEL4.test("{+list}" to "red,green,blue")
+        @Test
+        fun level4_8() = UriTemplateLevels.LEVEL4.test("{+list}" to "red,green,blue")
 
-    @Test
-    fun level4_9() = UriTemplateLevels.LEVEL4.test("{+list*}" to "red,green,blue")
+        @Test
+        fun level4_9() = UriTemplateLevels.LEVEL4.test("{+list*}" to "red,green,blue")
 
-    @Test
-    fun level4_10() = UriTemplateLevels.LEVEL4.test("{+keys}" to "semi,;,dot,.,comma,,")
+        @Test
+        fun level4_10() = UriTemplateLevels.LEVEL4.test("{+keys}" to "semi,;,dot,.,comma,,")
 
-    @Test
-    fun level4_11() = UriTemplateLevels.LEVEL4.test("{+keys*}" to "semi=;,dot=.,comma=,")
+        @Test
+        fun level4_11() = UriTemplateLevels.LEVEL4.test("{+keys*}" to "semi=;,dot=.,comma=,")
 
-    @Test
-    fun level4_12() = UriTemplateLevels.LEVEL4.test("{#path:6}/here" to "#/foo/b/here")
+        @Test
+        fun level4_12() = UriTemplateLevels.LEVEL4.test("{#path:6}/here" to "#/foo/b/here")
 
-    @Test
-    fun level4_13() = UriTemplateLevels.LEVEL4.test("{#list}" to "#red,green,blue")
+        @Test
+        fun level4_13() = UriTemplateLevels.LEVEL4.test("{#list}" to "#red,green,blue")
 
-    @Test
-    fun level4_14() = UriTemplateLevels.LEVEL4.test("{#list*}" to "#red,green,blue")
+        @Test
+        fun level4_14() = UriTemplateLevels.LEVEL4.test("{#list*}" to "#red,green,blue")
 
-    @Test
-    fun level4_15() = UriTemplateLevels.LEVEL4.test("{#keys}" to "#semi,;,dot,.,comma,,")
+        @Test
+        fun level4_15() = UriTemplateLevels.LEVEL4.test("{#keys}" to "#semi,;,dot,.,comma,,")
 
-    @Test
-    fun level4_16() = UriTemplateLevels.LEVEL4.test("{#keys*}" to "#semi=;,dot=.,comma=,")
+        @Test
+        fun level4_16() = UriTemplateLevels.LEVEL4.test("{#keys*}" to "#semi=;,dot=.,comma=,")
 
-    @Test
-    fun level4_17() = UriTemplateLevels.LEVEL4.test("X{.var:3}" to "X.val")
+        @Test
+        fun level4_17() = UriTemplateLevels.LEVEL4.test("X{.var:3}" to "X.val")
 
-    @Test
-    fun level4_18() = UriTemplateLevels.LEVEL4.test("X{.list}" to "X.red,green,blue")
+        @Test
+        fun level4_18() = UriTemplateLevels.LEVEL4.test("X{.list}" to "X.red,green,blue")
 
-    @Test
-    fun level4_19() = UriTemplateLevels.LEVEL4.test("X{.list*}" to "X.red.green.blue")
+        @Test
+        fun level4_19() = UriTemplateLevels.LEVEL4.test("X{.list*}" to "X.red.green.blue")
 
-    @Test
-    fun level4_20() = UriTemplateLevels.LEVEL4.test("X{.keys}" to "X.semi,%3B,dot,.,comma,%2C")
+        @Test
+        fun level4_20() = UriTemplateLevels.LEVEL4.test("X{.keys}" to "X.semi,%3B,dot,.,comma,%2C")
 
-    @Test
-    fun level4_21() = UriTemplateLevels.LEVEL4.test("{/var:1,var}" to "/v/value")
+        @Test
+        fun level4_21() = UriTemplateLevels.LEVEL4.test("{/var:1,var}" to "/v/value")
 
-    @Test
-    fun level4_22() = UriTemplateLevels.LEVEL4.test("{/list}" to "/red,green,blue")
+        @Test
+        fun level4_22() = UriTemplateLevels.LEVEL4.test("{/list}" to "/red,green,blue")
 
-    @Test
-    fun level4_23() = UriTemplateLevels.LEVEL4.test("{/list*}" to "/red/green/blue")
+        @Test
+        fun level4_23() = UriTemplateLevels.LEVEL4.test("{/list*}" to "/red/green/blue")
 
-    @Test
-    fun level4_24() = UriTemplateLevels.LEVEL4.test("{/list*,path:4}" to "/red/green/blue/%2Ffoo")
+        @Test
+        fun level4_24() = UriTemplateLevels.LEVEL4.test("{/list*,path:4}" to "/red/green/blue/%2Ffoo")
 
-    @Test
-    fun level4_25() = UriTemplateLevels.LEVEL4.test("{/keys}" to "/semi,%3B,dot,.,comma,%2C")
+        @Test
+        fun level4_25() = UriTemplateLevels.LEVEL4.test("{/keys}" to "/semi,%3B,dot,.,comma,%2C")
 
-    @Test
-    fun level4_26() = UriTemplateLevels.LEVEL4.test("{/keys*}" to "/semi=%3B/dot=./comma=%2C")
+        @Test
+        fun level4_26() = UriTemplateLevels.LEVEL4.test("{/keys*}" to "/semi=%3B/dot=./comma=%2C")
 
-    @Test
-    fun level4_27() = UriTemplateLevels.LEVEL4.test("{;hello:5}" to ";hello=Hello")
+        @Test
+        fun level4_27() = UriTemplateLevels.LEVEL4.test("{;hello:5}" to ";hello=Hello")
 
-    @Test
-    fun level4_28() = UriTemplateLevels.LEVEL4.test("{;list}" to ";list=red,green,blue")
+        @Test
+        fun level4_28() = UriTemplateLevels.LEVEL4.test("{;list}" to ";list=red,green,blue")
 
-    @Test
-    fun level4_29() = UriTemplateLevels.LEVEL4.test("{;list*}" to ";list=red;list=green;list=blue")
+        @Test
+        fun level4_29() = UriTemplateLevels.LEVEL4.test("{;list*}" to ";list=red;list=green;list=blue")
 
-    @Test
-    fun level4_30() = UriTemplateLevels.LEVEL4.test("{;keys}" to ";keys=semi,%3B,dot,.,comma,%2C")
+        @Test
+        fun level4_30() = UriTemplateLevels.LEVEL4.test("{;keys}" to ";keys=semi,%3B,dot,.,comma,%2C")
 
-    @Test
-    fun level4_31() = UriTemplateLevels.LEVEL4.test("{;keys*}" to ";semi=%3B;dot=.;comma=%2C")
+        @Test
+        fun level4_31() = UriTemplateLevels.LEVEL4.test("{;keys*}" to ";semi=%3B;dot=.;comma=%2C")
 
-    @Test
-    fun level4_32() = UriTemplateLevels.LEVEL4.test("{?var:3}" to "?var=val")
+        @Test
+        fun level4_32() = UriTemplateLevels.LEVEL4.test("{?var:3}" to "?var=val")
 
-    @Test
-    fun level4_33() = UriTemplateLevels.LEVEL4.test("{?list}" to "?list=red,green,blue")
+        @Test
+        fun level4_33() = UriTemplateLevels.LEVEL4.test("{?list}" to "?list=red,green,blue")
 
-    @Test
-    fun level4_34() = UriTemplateLevels.LEVEL4.test("{?list*}" to "?list=red&list=green&list=blue")
+        @Test
+        fun level4_34() = UriTemplateLevels.LEVEL4.test("{?list*}" to "?list=red&list=green&list=blue")
 
-    @Test
-    fun level4_35() = UriTemplateLevels.LEVEL4.test("{?keys}" to "?keys=semi,%3B,dot,.,comma,%2C")
+        @Test
+        fun level4_35() = UriTemplateLevels.LEVEL4.test("{?keys}" to "?keys=semi,%3B,dot,.,comma,%2C")
 
-    @Test
-    fun level4_36() = UriTemplateLevels.LEVEL4.test("{?keys*}" to "?semi=%3B&dot=.&comma=%2C")
+        @Test
+        fun level4_36() = UriTemplateLevels.LEVEL4.test("{?keys*}" to "?semi=%3B&dot=.&comma=%2C")
 
-    @Test
-    fun level4_37() = UriTemplateLevels.LEVEL4.test("{&var:3}" to "&var=val")
+        @Test
+        fun level4_37() = UriTemplateLevels.LEVEL4.test("{&var:3}" to "&var=val")
 
-    @Test
-    fun level4_38() = UriTemplateLevels.LEVEL4.test("{&list}" to "&list=red,green,blue")
+        @Test
+        fun level4_38() = UriTemplateLevels.LEVEL4.test("{&list}" to "&list=red,green,blue")
 
-    @Test
-    fun level4_39() = UriTemplateLevels.LEVEL4.test("{&list*}" to "&list=red&list=green&list=blue")
+        @Test
+        fun level4_39() = UriTemplateLevels.LEVEL4.test("{&list*}" to "&list=red&list=green&list=blue")
 
-    @Test
-    fun level4_40() = UriTemplateLevels.LEVEL4.test("{&keys}" to "&keys=semi,%3B,dot,.,comma,%2C")
+        @Test
+        fun level4_40() = UriTemplateLevels.LEVEL4.test("{&keys}" to "&keys=semi,%3B,dot,.,comma,%2C")
 
-    @Test
-    fun level4_41() = UriTemplateLevels.LEVEL4.test("{&keys*}" to "&semi=%3B&dot=.&comma=%2C")
+        @Test
+        fun level4_41() = UriTemplateLevels.LEVEL4.test("{&keys*}" to "&semi=%3B&dot=.&comma=%2C")
+    }
 }
 
 class UriTemplateAdditionTest {
@@ -367,45 +406,58 @@ class UriTemplateAdditionTest {
 
     @Test
     fun addition_reservedQuestion() =
-        UriTemplateLevels.ADDITIONAL.test("{?reserved}"
-                to "?reserved=%3A%2F%3F%23%5B%5D%40%21%24%26%27%28%29%2A%2B%2C%3B%3D")
+        UriTemplateLevels.ADDITIONAL.test(
+            "{?reserved}"
+                    to "?reserved=%3A%2F%3F%23%5B%5D%40%21%24%26%27%28%29%2A%2B%2C%3B%3D"
+        )
 
     @Test
     fun addition_reservedAmpersent() =
-        UriTemplateLevels.ADDITIONAL.test("{&reserved}"
-                to "&reserved=%3A%2F%3F%23%5B%5D%40%21%24%26%27%28%29%2A%2B%2C%3B%3D")
+        UriTemplateLevels.ADDITIONAL.test(
+            "{&reserved}"
+                    to "&reserved=%3A%2F%3F%23%5B%5D%40%21%24%26%27%28%29%2A%2B%2C%3B%3D"
+        )
 
     @Test
     fun addition_reservedSemicolon() =
-        UriTemplateLevels.ADDITIONAL.test("{;reserved}"
-                to ";reserved=%3A%2F%3F%23%5B%5D%40%21%24%26%27%28%29%2A%2B%2C%3B%3D")
+        UriTemplateLevels.ADDITIONAL.test(
+            "{;reserved}"
+                    to ";reserved=%3A%2F%3F%23%5B%5D%40%21%24%26%27%28%29%2A%2B%2C%3B%3D"
+        )
 
     @Test
     fun addition_cyrilic() =
-        UriTemplateLevels.ADDITIONAL.test("{cyrilic}" to "%04%10%04%11%04%12%04%13%04%14%04%15%04%39%04%3A%04%30")
+        UriTemplateLevels.ADDITIONAL.test("{cyrillic}" to "%D0%90%D0%91%D0%92%D0%93%D0%94%D0%95%D0%B9%D0%BA%D0%B0")
 
     @Test
     fun addition_cyrilicAmpersent() =
-        UriTemplateLevels.ADDITIONAL.test("{&cyrilic}"
-                to "&cyrilic=%04%10%04%11%04%12%04%13%04%14%04%15%04%39%04%3A%04%30")
+        UriTemplateLevels.ADDITIONAL.test(
+            "{&cyrillic}"
+                    to "&cyrillic=%D0%90%D0%91%D0%92%D0%93%D0%94%D0%95%D0%B9%D0%BA%D0%B0"
+        )
 
     @Test
     fun addition_cyrilicSub() =
-        UriTemplateLevels.ADDITIONAL.test("{/cyrilic:6}" to "/%04%10%04%11%04%12%04%13%04%14%04%15")
+        UriTemplateLevels.ADDITIONAL.test("{/cyrillic:6}" to "/%D0%90%D0%91%D0%92%D0%93%D0%94%D0%95")
 
     @Test
     fun addition_cyrilicPlusSub() =
-        UriTemplateLevels.ADDITIONAL.test("{+cyrilic:6}" to "%04%10%04%11%04%12%04%13%04%14%04%15")
+        UriTemplateLevels.ADDITIONAL.test("{+cyrillic:6}" to "%D0%90%D0%91%D0%92%D0%93%D0%94%D0%95")
 
     @Test
-    fun addition_tai() = UriTemplateLevels.ADDITIONAL.test("{/tai}" to "/%0E%20%0E%32%0E%29%0E%32%0E%44%0E%17%0E%22")
+    fun addition_tai() =
+        UriTemplateLevels.ADDITIONAL.test(
+            "{/tai}" to "/%E0%B8%A0%E0%B8%B2%E0%B8%A9%E0%B8%B2%E0%B9%84%E0%B8%97%E0%B8%A2"
+        )
 
     @Test
-    fun addition_taiSub() = UriTemplateLevels.ADDITIONAL.test("{?tai:2}" to "?tai=%0E%20%0E%32")
+    fun addition_taiSub() = UriTemplateLevels.ADDITIONAL.test("{?tai:2}" to "?tai=%E0%B8%A0%E0%B8%B2")
 
     @Test
-    fun queryList() = UriTemplateLevels.ADDITIONAL.test("{?var,keys:3*,list:2}"
-            to "?var=value&semi=%3B&dot=.&comma=%2C&text=sam&list=re,gr,bl")
+    fun queryList() = UriTemplateLevels.ADDITIONAL.test(
+        "{?var,keys*:3,list:2}"
+                to "?var=value&semi=%3B&dot=.&comma=%2C&text=sam&list=re,gr,bl"
+    )
 
     @Test
     fun wholeURL() =
@@ -459,7 +511,7 @@ enum class UriTemplateLevels(val lable: String, val variables: Map<String, Any?>
         mapOf(
             "null" to null,
             "reserved" to ":/?#[]@!$&'()*+,;=",
-            "cyrilic" to "АБВГДЕйка",
+            "cyrillic" to "АБВГДЕйка",
             "tai" to "ภาษาไทย",
             "domain" to listOf("sample", "com"),
             "port" to 8080,

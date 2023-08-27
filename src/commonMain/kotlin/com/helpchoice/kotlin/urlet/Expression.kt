@@ -4,7 +4,8 @@ const val UNRESERVED = "-._~ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz
 const val RESERVED = ":/?#[]@!$&'()*+,;="
 
 /**
- * Holds a single substitution placeholder with prefix literal in front of it
+ * Holds a single substitution placeholder with prefix literal in front of
+ * it
  */
 class Expression(private val prefix: String, placeholder: String?) {
     private val type: Char?
@@ -20,14 +21,20 @@ class Expression(private val prefix: String, placeholder: String?) {
                 }.let { (type, variable) ->
                     type to variable.split(',')
                         .fold(listOf<Placeholder>()) { list, varName ->
-                            val multiplier = varName.last() == '*'
-                            val name = if (multiplier) varName.dropLast(1) else varName
-                            val splits = name.split(':', limit = 2)
-                            list + Placeholder(
-                                splits[0],
-                                splits.run { if (size > 1) this[1].toInt() else null },
-                                multiplier
-                            )
+                            varName
+                                .split(':', limit = 2)
+                                .run {
+                                    val multiplier = this[0].last() == '*'
+                                    val name = this[0].run {
+                                        if (multiplier) dropLast(1) else this
+                                    }
+
+                                    list + Placeholder(
+                                        name,
+                                        run { if (size > 1) this[1].toInt() else null },
+                                        multiplier
+                                    )
+                                }
                         }
                 }
             } ?: (null to listOf()))
@@ -37,17 +44,14 @@ class Expression(private val prefix: String, placeholder: String?) {
             }
     }
 
-    private fun Int.pctEncode(): String {
-        return if (this <= 0xF) {
-            "%0${toString(16).uppercase()}"
-        } else if (this <= 0xFF) {
-            "%${toString(16).uppercase()}"
+    private fun pctEncode(c: Char): String = "$c".encodeToByteArray().fold("") { acc, b ->
+        val u: UByte = b.toUByte()
+        acc + if (u <= 0xF.toUByte()) {
+            "%0${u.toString(16).uppercase()}"
         } else {
-            "${this.shr(8).pctEncode()}${this.and(0xFF).pctEncode()}"
+            "%${u.toString(16).uppercase()}"
         }
     }
-
-    private fun pctEncode(c: Char): String = c.code.pctEncode()
 
     fun appendTo(buffer: StringBuilder, with: Map<String, Any?>) {
         buffer.append(prefix)
@@ -66,24 +70,15 @@ class Expression(private val prefix: String, placeholder: String?) {
             fun encode(value: String, limit: Int?): String {
                 var str = value
                 str = str.substring(0, minOf(str.length, limit ?: str.length))
-                str = if (type == null || !"+#".contains(type)) {
-                    str.toCharArray().fold("") { encoded, c ->
-                        if (c in UNRESERVED) {
-                            "${encoded}$c"
-                        } else {
-                            "${encoded}${pctEncode(c)}"
-                        }
-                    }
-                } else {
-                    str.toCharArray().fold("") { encoded, c ->
-                        if (c in UNRESERVED || c in RESERVED) {
-                            "${encoded}$c"
-                        } else {
-                            "${encoded}${pctEncode(c)}"
-                        }
+                return str.toCharArray().fold("") { encoded, c ->
+                    if (c in UNRESERVED
+                        || (type != null && type in "+#" && c in RESERVED)
+                    ) {
+                        "${encoded}$c"
+                    } else {
+                        "${encoded}${pctEncode(c)}"
                     }
                 }
-                return str
             }
 
             when {
