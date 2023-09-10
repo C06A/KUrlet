@@ -1,4 +1,4 @@
-package com.helpchoice.kotlin.urlet
+package com.helpchoice.kotlin.kurlet
 
 const val UNRESERVED = "-._~ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 const val RESERVED = ":/?#[]@!$&'()*+,;="

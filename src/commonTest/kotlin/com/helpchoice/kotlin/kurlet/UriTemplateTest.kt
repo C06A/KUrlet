@@ -1,4 +1,4 @@
-package com.helpchoice.kotlin.urlet
+package com.helpchoice.kotlin.kurlet
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
