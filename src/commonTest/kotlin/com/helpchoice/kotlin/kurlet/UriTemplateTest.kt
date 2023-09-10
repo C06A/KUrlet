@@ -1,5 +1,6 @@
 package com.helpchoice.kotlin.kurlet
 
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -460,6 +461,31 @@ class UriTemplateAdditionTest {
     )
 
     @Test
+    fun prefixes() = UriTemplateLevels.ADDITIONAL.test(
+        "{?var:3,keys:2,list:2}"
+                to "?var=val&keys=semi,%3B,dot,.,comma,%2C,text,sa&list=re,gr,bl"
+    )
+
+    @Test
+    fun explode() = UriTemplateLevels.ADDITIONAL.test(
+        "{?var*,list*,keys*}"
+                to "?var&value&list=red&list=green&list=blue&semi=%3B&dot=.&comma=%2C&text=sample"
+    )
+
+    @Test
+    fun modifiers() = UriTemplateLevels.ADDITIONAL.test(
+        "{?var*:3,list*:2,keys*:2}"
+                to "?var&val&list=re&list=gr&list=bl&semi=%3B&dot=.&comma=%2C&text=sa"
+    )
+
+    @Test
+    @Ignore
+    fun modifiersOrger() = UriTemplateLevels.ADDITIONAL.test(
+        "{?var:3*,list:2*,keys:2*}"
+                to "?var=value&semi=%3B&dot=.&comma=%2C&text=sam&list=re,gr,bl"
+    )
+
+    @Test
     fun wholeURL() =
         UriTemplateLevels.ADDITIONAL.test(
             "http://www{.domain*}:{port}{/path*}/sub{?var,hello,missing}&flag{&list,keys*}&par=value{#fragment}"
@@ -470,6 +496,15 @@ class UriTemplateAdditionTest {
                         |#section
                         |""".trimMargin().replace("\n", "")
         )
+
+    @Test
+    @Ignore
+    fun buildURN() =
+        UriTemplateLevels.URN.test(
+            "{urn}{:nid,nss}"
+                    to "foo:bar:abc,defg"
+        )
+
 }
 
 enum class UriTemplateLevels(val lable: String, val variables: Map<String, Any?>) {
@@ -522,6 +557,13 @@ enum class UriTemplateLevels(val lable: String, val variables: Map<String, Any?>
             "keys" to mapOf("semi" to ";", "dot" to ".", "comma" to ",", "text" to "sample"),
             "fragment" to "section",
         ),
+    ),
+    URN("URN template",
+        mapOf(
+            "urn" to "foo",
+            "nid" to "bar",
+            "nss" to listOf("abc", "defg")
+        )
     ),
     ;
 

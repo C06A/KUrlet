@@ -49,7 +49,6 @@ kotlin {
         val commonMain by getting
         val commonTest by getting {
             dependencies {
-//                implementation("com.eygraber:uri-kmp:0.0.14")
                 implementation(kotlin("test"))
             }
         }

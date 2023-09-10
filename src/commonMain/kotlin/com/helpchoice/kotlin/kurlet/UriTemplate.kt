@@ -9,7 +9,10 @@ class UriTemplate(private val template: String) {
     private val placeholders: MutableCollection<Expression> = mutableListOf()
 
     init {
-        template.split('}').filter { it.isNotEmpty() }.forEach {
+        template.split('}')
+            .filter {
+                it.isNotEmpty()
+            }.forEach {
                 val prefVar = it.split('{')
             if(prefVar.size > 1) {
                 placeholders += Expression(prefVar[0], prefVar[1])
