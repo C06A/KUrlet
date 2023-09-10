@@ -457,13 +457,13 @@ class UriTemplateAdditionTest {
     @Test
     fun queryList() = UriTemplateLevels.ADDITIONAL.test(
         "{?var,keys*:3,list:2}"
-                to "?var=value&semi=%3B&dot=.&comma=%2C&text=sam&list=re,gr,bl"
+                to "?var=value&semi=%3B&dot=.&comma=%2C&text=sample&list=red,green,blue"
     )
 
     @Test
     fun prefixes() = UriTemplateLevels.ADDITIONAL.test(
         "{?var:3,keys:2,list:2}"
-                to "?var=val&keys=semi,%3B,dot,.,comma,%2C,text,sa&list=re,gr,bl"
+                to "?var=val&keys=semi,%3B,dot,.,comma,%2C,text,sample&list=red,green,blue"
     )
 
     @Test
@@ -475,11 +475,11 @@ class UriTemplateAdditionTest {
     @Test
     fun modifiers() = UriTemplateLevels.ADDITIONAL.test(
         "{?var*:3,list*:2,keys*:2}"
-                to "?var&val&list=re&list=gr&list=bl&semi=%3B&dot=.&comma=%2C&text=sa"
+                to "?var&val&list=red&list=green&list=blue&semi=%3B&dot=.&comma=%2C&text=sample"
     )
 
     @Test
-    @Ignore
+    @Ignore // RFC is not clear if this order of modefiers should work too
     fun modifiersOrger() = UriTemplateLevels.ADDITIONAL.test(
         "{?var:3*,list:2*,keys:2*}"
                 to "?var=value&semi=%3B&dot=.&comma=%2C&text=sam&list=re,gr,bl"
@@ -498,7 +498,7 @@ class UriTemplateAdditionTest {
         )
 
     @Test
-    @Ignore
+    @Ignore // RFC doesn't mention colon (":") as espention option, so no URN support
     fun buildURN() =
         UriTemplateLevels.URN.test(
             "{urn}{:nid,nss}"

@@ -18,10 +18,10 @@ class Expression(private val prefix: String, placeholder: String?) {
                     first() to drop(1)
                 } else {
                     null to this
-                }.let { (type, variable) ->
-                    type to variable.split(',')
-                        .fold(listOf<Placeholder>()) { list, varName ->
-                            varName
+                }.let { (type, variableList) ->
+                    type to variableList.split(',')
+                        .fold(listOf<Placeholder>()) { list, varSpec ->
+                            varSpec
                                 .split(':', limit = 2)
                                 .run {
                                     val multiplier = this[0].last() == '*'
@@ -67,7 +67,7 @@ class Expression(private val prefix: String, placeholder: String?) {
         placeholders.forEach { varDeclaration ->
             val variable = with[varDeclaration.name]
 
-            fun encode(value: String, limit: Int?): String {
+            fun encode(value: String, limit: Int? = null): String {
                 var str = value
                 str = str.substring(0, minOf(str.length, limit ?: str.length))
                 return str.toCharArray().fold("") { encoded, c ->
@@ -94,7 +94,7 @@ class Expression(private val prefix: String, placeholder: String?) {
                         }
 
                         variable.mapNotNull {
-                            encode(it.toString(), varDeclaration.limit)
+                            encode(it.toString()) // , varDeclaration.limit) // no prefix applied to collection: RFC-6570 2.4.1
                         }.joinTo(buffer, infix, prefix)
                     }
                 }
@@ -102,7 +102,7 @@ class Expression(private val prefix: String, placeholder: String?) {
                 variable is Map<*, *> -> {
                     if (variable.isNotEmpty()) {
                         val mapped = variable.mapNotNull {
-                            val str = encode(it.value.toString(), varDeclaration.limit)
+                            val str = encode(it.value.toString()) // , varDeclaration.limit) // no prefix applied to collection: RFC-6570 2.4.1
                             "${it.key}${if (varDeclaration.multiplier) "=" else ","}$str"
                         }
                         if (varDeclaration.multiplier) {
