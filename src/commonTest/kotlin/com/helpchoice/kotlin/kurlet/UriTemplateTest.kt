@@ -479,10 +479,9 @@ class UriTemplateAdditionTest {
     )
 
     @Test
-    @Ignore // RFC is not clear if this order of modefiers should work too
-    fun modifiersOrger() = UriTemplateLevels.ADDITIONAL.test(
+    fun modifiersOrder() = UriTemplateLevels.ADDITIONAL.test(
         "{?var:3*,list:2*,keys:2*}"
-                to "?var=value&semi=%3B&dot=.&comma=%2C&text=sam&list=re,gr,bl"
+                to "?var&val&list=red&list=green&list=blue&semi=%3B&dot=.&comma=%2C&text=sample"
     )
 
     @Test

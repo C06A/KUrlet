@@ -18,21 +18,18 @@ class Expression(private val prefix: String, placeholder: String?) {
                     first() to drop(1)
                 } else {
                     null to this
-                }.let { (type, variableList) ->
+                }.let { (type: Char?, variableList: String) ->
                     type to variableList.split(',')
                         .fold(listOf<Placeholder>()) { list, varSpec ->
                             varSpec
                                 .split(':', limit = 2)
                                 .run {
-                                    val multiplier = this[0].last() == '*'
-                                    val name = this[0].run {
-                                        if (multiplier) dropLast(1) else this
-                                    }
-
                                     list + Placeholder(
-                                        name,
-                                        run { if (size > 1) this[1].toInt() else null },
-                                        multiplier
+                                        this[0].removeSuffix("*"),
+                                        if (this.size > 1) {
+                                            this[1].removeSuffix("*").toInt()
+                                        } else null,
+                                        ((this[0].last() == '*') || (this.size > 1 && this[1].last() == '*'))
                                     )
                                 }
                         }
@@ -102,7 +99,8 @@ class Expression(private val prefix: String, placeholder: String?) {
                 variable is Map<*, *> -> {
                     if (variable.isNotEmpty()) {
                         val mapped = variable.mapNotNull {
-                            val str = encode(it.value.toString()) // , varDeclaration.limit) // no prefix applied to collection: RFC-6570 2.4.1
+                            val str =
+                                encode(it.value.toString()) // , varDeclaration.limit) // no prefix applied to collection: RFC-6570 2.4.1
                             "${it.key}${if (varDeclaration.multiplier) "=" else ","}$str"
                         }
                         if (varDeclaration.multiplier) {

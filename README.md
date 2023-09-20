@@ -11,18 +11,28 @@
 ![GitHub repo file count (file type)](https://img.shields.io/github/directory-file-count/C06A/KUrlet?logo=github)
 ![GitHub repo file count (file extension)](https://img.shields.io/github/directory-file-count/C06A/KUrlet/src?label=extensions&logo=github)
 
-![GitHub last commit (by committer)](https://img.shields.io/github/last-commit/C06A/KUrlet/develop)
-![GitHub tag checks state](https://img.shields.io/github/checks-status/C06A/KUrlet/2.0.0)
-![GitHub Release Date - Published_At](https://img.shields.io/github/release-date/C06A/KUrlet)
-[![Maven Central](https://img.shields.io/maven-central/v/com.helpchoice.kotlin/KUrlet?logo=apachemaven)](https://mvnrepository.com/search?q=KUrlet&d=com.helpchoice)
-![GitHub all releases](https://img.shields.io/github/downloads/C06A/KUrlet/total)
+[//]: # (![GitHub last commit &#40;by committer&#41;]&#40;https://img.shields.io/github/last-commit/C06A/KUrlet/develop&#41;)
 
-![GitHub issues](https://img.shields.io/github/issues-raw/C06A/KUrlet?logo=github)
-![GitHub pull requests](https://img.shields.io/github/issues-pr-raw/C06A/KUrlet?logo=github)
-![GitHub Discussions](https://img.shields.io/github/discussions/C06A/KUrlet)
-![GitHub forks](https://img.shields.io/github/forks/C06A/KUrlet)
-![GitHub Repo stars](https://img.shields.io/github/stars/C06A/KUrlet?label=Repo+stars)
-![GitHub watchers](https://img.shields.io/github/watchers/C06A/KUrlet)
+[//]: # (![GitHub tag checks state]&#40;https://img.shields.io/github/checks-status/C06A/KUrlet/2.1.0&#41;)
+
+[//]: # (![GitHub Release Date - Published_At]&#40;https://img.shields.io/github/release-date/C06A/KUrlet&#41;)
+
+[//]: # ([![Maven Central]&#40;https://img.shields.io/maven-central/v/com.helpchoice.kotlin/KUrlet?logo=apachemaven&#41;]&#40;https://mvnrepository.com/search?q=KUrlet&d=com.helpchoice&#41;)
+
+[//]: # (![GitHub all releases]&#40;https://img.shields.io/github/downloads/C06A/KUrlet/total&#41;)
+
+[//]: # ()
+[//]: # (![GitHub issues]&#40;https://img.shields.io/github/issues-raw/C06A/KUrlet?logo=github&#41;)
+
+[//]: # (![GitHub pull requests]&#40;https://img.shields.io/github/issues-pr-raw/C06A/KUrlet?logo=github&#41;)
+
+[//]: # (![GitHub Discussions]&#40;https://img.shields.io/github/discussions/C06A/KUrlet&#41;)
+
+[//]: # (![GitHub forks]&#40;https://img.shields.io/github/forks/C06A/KUrlet&#41;)
+
+[//]: # (![GitHub Repo stars]&#40;https://img.shields.io/github/stars/C06A/KUrlet?label=Repo+stars&#41;)
+
+[//]: # (![GitHub watchers]&#40;https://img.shields.io/github/watchers/C06A/KUrlet&#41;)
 
 [//]: # (![GitHub followers]&#40;https://img.shields.io/github/followers/C06A&#41;)
 [//]: # (![GitHub User's stars]&#40;https://img.shields.io/github/stars/C06A?label=User+stars&#41;)
@@ -105,9 +115,51 @@ Because common classes defined in the pure Kotlin, there is no need to implement
 ### Regression Tests
 
 The Common tests folder includes tests, based on the examples
-provided in the [RFC6570](https://www.rfc-editor.org/rfc/rfc6570) and additional tests for more complicated cases.
+provided in the [RFC-6570](https://www.rfc-editor.org/rfc/rfc6570) and additional tests for more complicated cases.
 
 Tests are organized in groups, represented by classes and inner classes.
+
+## How this project measures against RFC-6570?
+
+People have different interpretation of some aspects of the [RFC-6570](https://www.rfc-editor.org/rfc/rfc6570). Here are some comments
+on this project implementation approach and reasoning behind them.
+
+Some of these conversation are from long time ago,
+but because the [RFC-6570](https://www.rfc-editor.org/rfc/rfc6570) didn't change and still allows multiple interpretation,
+file issue in GitHub with your comments and recommendations.
+
+### Combinations of the modifiers
+
+The RFC6570 states that a prefix modifier should not be applied `to variables that have composite values`.
+On another hand an explode modifier `indicates that the variable is to be treated as a composite value`.
+
+Some people interpret this as both modifiers should not be applied to the single expansion. However, in Appendix A
+it saies: `... If it is an explode ("*"), scan the next character.  If it is a prefix (":"), continue scanning...`.
+This means that modifiers can be combined.
+
+This project accepts both modifiers even though apply only one, appropriate to the type of the variable value.
+
+
+### Order of modifiers
+
+The RFC6570 doesn't mention the order of modifiers. The Appendix A shows an explode modifier comes before a prefix.
+There is no reason to do not allow reverse order as well.
+
+This project allows modifiers in either order.
+
+
+### Restrictions
+
+This project built to expand the template. To minimize the load on the client, using this library,
+it may not report on templates not following all limitations of the [RFC-6570](https://www.rfc-editor.org/rfc/rfc6570).
+If template is not valid, the result of expansion is undefined.
+
+
+[//]: # (### Resources)
+
+[//]: # ()
+[//]: # (Online utility to test URI Template: https://www.utilities-online.info/uritemplate)
+
 
 ## Improvements
 
