@@ -17,7 +17,7 @@
 
 [//]: # (![GitHub Release Date - Published_At]&#40;https://img.shields.io/github/release-date/C06A/KUrlet&#41;)
 
-[//]: # ([![Maven Central]&#40;https://img.shields.io/maven-central/v/com.helpchoice.kotlin/KUrlet?logo=apachemaven&#41;]&#40;https://mvnrepository.com/search?q=KUrlet&d=com.helpchoice&#41;)
+[![Maven Central](https://img.shields.io/maven-central/v/com.helpchoice.kotlin/KUrlet?logo=apachemaven)](https://mvnrepository.com/search?q=KUrlet&d=com.helpchoice)
 
 [//]: # (![GitHub all releases]&#40;https://img.shields.io/github/downloads/C06A/KUrlet/total&#41;)
 
@@ -59,16 +59,20 @@ dependencies {
 ```
 
 Alternatively, in the projects other than Kotlin MPP, should include platform-specific artifact:
+
+-- in Java or Groovy project
 ```kotlin
 dependencies {
     implementation("com.helpchoice.kotlin:KUrlet-jvm:<version>")
 }
 ```
+-- in Javascript project
 ```kotlin
 dependencies {
     implementation("com.helpchoice.kotlin:KUrlet-js:<version>")
 }
 ```
+-- in Windows, Linux, MacOS, or iOS project
 ```kotlin
 dependencies {
     implementation("com.helpchoice.kotlin:KUrlet-native:<version>")
@@ -76,6 +80,8 @@ dependencies {
 ```
 
 For earlier versions, which were not published in MavenCentral use JitPack project.
+Keep in mind that they are not MPProject.
+
 To do that add at the end of repositories list of your `gradle.build.kts` file:
 
 ```kotlin
@@ -96,14 +102,17 @@ dependencies {
 The project is a multiplatform pure Kotlin library. It includes separate folder of the top level module
 for each supported platform (JVM, JS, and Native) code and tests.
 
-There is one more module `convention-plugins`, which publishes released artifacts to MavenCentral.
+Additional modules:
+- `convention-plugins` -- publishes released artifacts to MavenCentral
+- `JVMsample` -- a sample Java project using this library
+- `GroovySample` -- a sample Groovy project using this library
 
 ### Common code
 
 The common code includes 2 classes:
 
-* **`UriTempl`** -- represents the UriTemplate object and encloses code to split template into literals and expressions
-* **`Expression`** -- represents the string literal followed by expression
+* **`UriTemplate`** -- represents the UriTemplate object and encloses code to split template into literals and expressions
+* **`Expression`** -- represents the string literal followed by expression and modifiers
 (as defined in the [RFC6570](https://www.rfc-editor.org/rfc/rfc6570))
 
 Both classes are pure Kotlin and don't need platform-specific related code.
@@ -130,7 +139,7 @@ file issue in GitHub with your comments and recommendations.
 
 ### Combinations of the modifiers
 
-The RFC6570 states that a prefix modifier should not be applied `to variables that have composite values`.
+The [RFC6570](https://www.rfc-editor.org/rfc/rfc6570) states that a prefix modifier should not be applied `to variables that have composite values`.
 On another hand an explode modifier `indicates that the variable is to be treated as a composite value`.
 
 Some people interpret this as both modifiers should not be applied to the single expansion. However, in Appendix A
@@ -142,7 +151,7 @@ This project accepts both modifiers even though apply only one, appropriate to t
 
 ### Order of modifiers
 
-The RFC6570 doesn't mention the order of modifiers. The Appendix A shows an explode modifier comes before a prefix.
+The [RFC6570](https://www.rfc-editor.org/rfc/rfc6570) doesn't mention the order of modifiers. The Appendix A shows an explode modifier comes before a prefix.
 There is no reason to do not allow reverse order as well.
 
 This project allows modifiers in either order.
@@ -150,7 +159,7 @@ This project allows modifiers in either order.
 
 ### Restrictions
 
-This project built to expand the template. To minimize the load on the client, using this library,
+This project built to expand the template. To minimize the load on the client, uses this library,
 it may not report on templates not following all limitations of the [RFC-6570](https://www.rfc-editor.org/rfc/rfc6570).
 If template is not valid, the result of expansion is undefined.
 

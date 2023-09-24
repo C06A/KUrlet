@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.helpchoice.kotlin"
-version = "2.1.0"
+version = "2.1.1"
 
 repositories {
     mavenCentral()
@@ -35,6 +35,10 @@ kotlin {
             }
         }
     }
+
+    mingwX64()
+    linuxX64()
+
     val hostOs = System.getProperty("os.name")
     val isMingwX64 = hostOs.startsWith("Windows")
     val nativeTarget = when {
