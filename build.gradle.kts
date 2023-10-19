@@ -1,5 +1,6 @@
 plugins {
     kotlin("multiplatform") version "1.9.10"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.10"
     id("convention.publication")
 }
 
@@ -12,13 +13,16 @@ repositories {
 
 kotlin {
     jvm {
-        compilations.all {
-            kotlinOptions.jvmTarget = "1.8"
-        }
+        compilations
+            .all {
+                kotlinOptions.jvmTarget = "1.8"
+            }
         withJava()
-        testRuns["test"].executionTask.configure {
-            useJUnitPlatform()
-        }
+        testRuns["test"]
+            .executionTask
+            .configure {
+                useJUnitPlatform()
+            }
     }
     js(IR) {
         binaries.executable()
@@ -38,6 +42,7 @@ kotlin {
 
     mingwX64()
     linuxX64()
+    linuxArm64()
 
     val hostOs = System.getProperty("os.name")
     val isMingwX64 = hostOs.startsWith("Windows")
@@ -48,12 +53,14 @@ kotlin {
         else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
     }
 
-    
+
     sourceSets {
         val commonMain by getting
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
+                implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.4")
+                implementation("org.jetbrains.kotlin:kotlin-serialization:1.9.10")
             }
         }
         val jvmMain by getting

@@ -101,7 +101,7 @@ class Expression(private val prefix: String, placeholder: String?) {
                         val mapped = variable.mapNotNull {
                             val str =
                                 encode(it.value.toString()) // , varDeclaration.limit) // no prefix applied to collection: RFC-6570 2.4.1
-                            "${it.key}${if (varDeclaration.multiplier) "=" else ","}$str"
+                            "${encode(it.key.toString())}${if (varDeclaration.multiplier) "=" else ","}$str"
                         }
                         if (varDeclaration.multiplier) {
                             mapped.joinTo(buffer, separator, preparator)
