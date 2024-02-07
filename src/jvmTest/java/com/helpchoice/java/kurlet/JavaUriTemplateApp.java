@@ -1,6 +1,6 @@
 package com.helpchoice.java.kurlet;
 
-import com.github.hal4j.uritemplate.URITemplate;
+//import com.github.hal4j.uritemplate.URITemplate;
 import com.helpchoice.kotlin.kurlet.UriTemplate;
 
 import java.util.HashMap;
